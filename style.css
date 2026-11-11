@@ -1,101 +1,185 @@
+/* Import font Google (Inter) biar lebih modern */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', sans-serif; /* Pake font modern */
 }
 
 body {
-    background-color: #f4f7f6;
-    color: #333;
-    padding-bottom: 70px; /* Jarak untuk navigasi bawah */
+    background-color: #f8fafc; /* Warna background abu-abu sangat muda khas app modern */
+    color: #1e293b;
+    padding-bottom: 80px; /* Jarak navigasi bawah agak dilebarin */
 }
 
+/* Header khas aplikasi (App Bar) */
 header {
-    background-color: #007bff;
+    background-color: #3b82f6; /* Biru cerah modern */
     color: white;
-    padding: 15px;
-    text-align: center;
+    padding: 18px 20px;
     position: sticky;
     top: 0;
     z-index: 100;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 main {
-    padding: 15px;
+    padding: 20px;
 }
 
 h3 {
-    margin-bottom: 15px;
-    color: #444;
+    margin-bottom: 16px;
+    color: #334155;
+    font-size: 18px;
+    font-weight: 600;
 }
 
-/* Tampilan Form */
+/* Form Input - Vibe Material Design */
 form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px; /* Jarak antar input */
     background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Shadow halus */
 }
 
 input, select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+    padding: 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 15px;
+    background-color: #f8fafc;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+input:focus, select:focus {
+    border-color: #3b82f6;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); /* Efek ring saat diklik */
 }
 
 button[type="submit"] {
-    background-color: #28a745;
+    background-color: #3b82f6;
     color: white;
     border: none;
-    padding: 12px;
-    border-radius: 5px;
+    padding: 16px;
+    border-radius: 10px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-top: 8px;
 }
 
-/* Card Item Cucian */
+button[type="submit"]:active {
+    background-color: #2563eb;
+    transform: scale(0.98); /* Efek ditekan */
+}
+
+button[type="submit"]:disabled {
+    background-color: #94a3b8;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Card Cucian - Vibe Android CardView */
 .card {
     background: white;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    border-left: 5px solid #007bff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 18px;
+    margin-bottom: 16px;
+    border-radius: 16px;
+    border-left: 6px solid #3b82f6;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    transition: transform 0.2s;
+}
+
+.card:active {
+    transform: scale(0.98); /* Efek ditekan pas ngetap card */
 }
 
 .card h4 {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #0f172a;
 }
 
 .card p {
     font-size: 14px;
-    color: #555;
-    margin-bottom: 5px;
+    color: #64748b;
+    margin-bottom: 6px;
 }
 
+.card p b {
+    color: #1e293b;
+    font-size: 15px;
+}
+
+/* Bagian Tombol Aksi di dalam Card */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    border-top: 1px solid #f1f5f9; /* Garis pemisah halus */
+    padding-top: 12px;
+}
+
+/* Status Badge - Berbentuk Pill ala Android */
 .status-badge {
     display: inline-block;
-    padding: 6px 10px;
-    border-radius: 4px;
+    padding: 8px 14px;
+    border-radius: 20px;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 600;
     color: white;
-    margin-top: 10px;
     cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.1s, opacity 0.2s;
 }
 
-/* Warna Status */
-.status-antrean { background-color: #dc3545; }
-.status-diproses { background-color: #ffc107; color: black; }
-.status-selesai { background-color: #28a745; }
+.status-badge:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+}
 
-/* Navigasi Bawah */
+/* Palet Warna Status Modern */
+.status-antrean { background-color: #ef4444; } /* Merah modern */
+.status-diproses { background-color: #f59e0b; color: white; } /* Kuning/Amber */
+.status-selesai { background-color: #10b981; } /* Hijau Emerald */
+
+.btn-wa {
+    background-color: #22c55e; 
+    color: white;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Kotak Error Log */
+#error-log {
+    border-radius: 10px;
+    font-size: 14px;
+    box-shadow: 0 4px 6px rgba(239, 68, 68, 0.1);
+}
+
+/* Navigasi Bawah (Bottom Navigation Bar) */
 .bottom-nav {
     position: fixed;
     bottom: 0;
@@ -104,40 +188,50 @@ button[type="submit"] {
     display: flex;
     justify-content: space-around;
     padding: 12px 0;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.05); /* Bayangan ke atas */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 .bottom-nav button {
     background: none;
     border: none;
-    font-size: 16px;
-    color: #555;
-    font-weight: bold;
+    font-size: 14px;
+    color: #64748b; /* Warna abu-abu saat tidak aktif */
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px;
+    width: 45%;
+    border-radius: 12px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* Vibe saat tombol ditekan (Ripple effect ringan) */
+.bottom-nav button:active {
+    background-color: #f1f5f9;
+}
+
+/* Tombol Aktif akan dikendalikan oleh JS (Class tambahan) */
+.bottom-nav button.active-nav {
+    color: #3b82f6; /* Warna biru aktif */
+}
+
+/* Animasi Fade In simpel buat List biar gak kaget */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#list-section:not(.hidden) {
+    animation: fadeIn 0.3s ease-out;
+}
+#form-section:not(.hidden) {
+    animation: fadeIn 0.3s ease-out;
 }
 
 .hidden {
-    display: none;
-}
-
-/* Styling Tombol Aksi di Card */
-.action-buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 12px;
-}
-
-.btn-wa {
-    background-color: #25D366; /* Warna khas WhatsApp */
-    color: white;
-    text-decoration: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
-    display: inline-block;
-}
-
-.btn-wa:hover {
-    background-color: #1ebe56;
+    display: none !important;
 }
