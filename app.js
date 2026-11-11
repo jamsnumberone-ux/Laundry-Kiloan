@@ -1,21 +1,27 @@
 // app.js
 import { collection, addDoc, getDocs, updateDoc, doc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { db } from "./firebase-config.js"; // Minjem koneksi dari file sebelah
+import { db } from "./firebase-config.js";
 
 const transactionsRef = collection(db, "transactions");
 
-// Harga Master
 const hargaLayanan = {
     "Cuci Komplit": 6000,
     "Cuci Kering": 4000,
     "Setrika": 3000
 };
 
-// Logic Navigasi Bawah
 const formSection = document.getElementById("form-section");
 const listSection = document.getElementById("list-section");
 const navForm = document.getElementById("nav-form");
 const navList = document.getElementById("nav-list");
+const form = document.getElementById("laundry-form");
+const errorLog = document.getElementById("error-log"); // Tangkap div error
+
+// Fungsi buat nampilin error di layar
+function showError(msg, err) {
+    errorLog.style.display = "block";
+    errorLog.innerHTML = msg + "<br>Detail: " + (err.message || err);
+}
 
 listSection.classList.add("hidden");
 
@@ -30,11 +36,13 @@ navList.addEventListener("click", () => {
     loadData();
 });
 
-// Logic Simpan Data
-document.getElementById("laundry-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
+form.addEventListener("submit", async (e) => {
+    e.preventDefault(); 
+    errorLog.style.display = "none"; // Sembunyiin error lama
+    
     const btnSimpan = document.getElementById("btn-simpan");
     btnSimpan.innerText = "Menyimpan...";
+    btnSimpan.disabled = true; 
     
     const nama = document.getElementById("nama").value;
     const nohp = document.getElementById("nohp").value;
@@ -57,27 +65,33 @@ document.getElementById("laundry-form").addEventListener("submit", async (e) => 
         });
         
         alert(`Berhasil! Total: Rp ${totalHarga.toLocaleString("id-ID")}`);
-        document.getElementById("laundry-form").reset();
-        btnSimpan.innerText = "Simpan Transaksi";
+        form.reset(); 
         navList.click(); 
         
     } catch (error) {
-        console.error("Error nambah dokumen: ", error);
-        alert("Gagal menyimpan data!");
+        // INI PENTING: TAMPILIN ERROR KE LAYAR
+        showError("Gagal menyimpan data ke Firebase!", error);
+    } finally {
         btnSimpan.innerText = "Simpan Transaksi";
+        btnSimpan.disabled = false;
     }
 });
 
-// Logic Ambil Data 
-async function loadData() {
+window.loadData = async function loadData() {
     const cucianList = document.getElementById("cucian-list");
     cucianList.innerHTML = "<p>Loading data...</p>";
+    errorLog.style.display = "none"; 
     
     try {
         const q = query(transactionsRef, orderBy("tanggal", "desc"));
         const querySnapshot = await getDocs(q);
         cucianList.innerHTML = "";
         
+        if (querySnapshot.empty) {
+            cucianList.innerHTML = "<p>Belum ada transaksi.</p>";
+            return;
+        }
+
         querySnapshot.forEach((docSnapshot) => {
             const data = docSnapshot.data();
             const id = docSnapshot.id;
@@ -94,9 +108,7 @@ async function loadData() {
             let noWa = data.nohp;
             if (noWa.startsWith("0")) noWa = "62" + noWa.substring(1);
             
-            // Link ini udah gua siapin buat web tracking lu nanti
-            // (Tinggal ganti URL github lu)
-            const pesanSelesai = `Halo Kak ${data.nama},%0A%0ACucian (Nota: *${data.nota}*) sudah *SELESAI* & siap diambil.%0ATagihan: *Rp ${data.total.toLocaleString("id-ID")}*.%0A%0ACek statusmu di: https://github_username_lu.github.io/repo_lu/tracking.html`;
+            const pesanSelesai = `Halo Kak ${data.nama},%0A%0ACucian (Nota: *${data.nota}*) sudah *SELESAI* & siap diambil.%0ATagihan: *Rp ${data.total.toLocaleString("id-ID")}*.%0A%0ACek statusmu di: https://username.github.io/repo/tracking.html`;
             
             const waButtonHTML = data.status === "Selesai" ? 
                 `<a href="https://wa.me/${noWa}?text=${pesanSelesai}" target="_blank" class="btn-wa">📱 WA Pelanggan</a>` : "";
@@ -121,12 +133,12 @@ async function loadData() {
         });
 
     } catch (error) {
-        console.error("Error ngambil data: ", error);
-        cucianList.innerHTML = "<p>Gagal memuat data.</p>";
+        // INI PENTING: TAMPILIN ERROR KE LAYAR
+        cucianList.innerHTML = "<p style='color:red;'>Gagal memuat data.</p>";
+        showError("Gagal mengambil data dari Firebase!", error);
     }
 }
 
-// Logic Update Status 
 async function updateStatus(e) {
     const docId = e.target.getAttribute("data-id");
     const currentStatus = e.target.getAttribute("data-status");
@@ -138,14 +150,13 @@ async function updateStatus(e) {
     
     if(!nextStatus) return;
     
-    const confirmUpdate = confirm(`Ubah status baju jadi "${nextStatus}"?`);
-    if(confirmUpdate) {
+    if(confirm(`Ubah status baju jadi "${nextStatus}"?`)) {
         try {
             const docRef = doc(db, "transactions", docId);
             await updateDoc(docRef, { status: nextStatus });
-            loadData(); 
+            window.loadData(); 
         } catch (error) {
-            console.error("Gagal update status: ", error);
+            showError("Gagal update status!", error);
         }
     }
 }
