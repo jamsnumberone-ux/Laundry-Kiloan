@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kasir Laundry Kiloan</title>
     <link rel="stylesheet" href="style.css">
-    
-    <!-- PERUBAHAN: Pindah ke sini dan pakai defer -->
     <script type="module" src="./app.js" defer></script>
 </head>
 <body>
@@ -17,31 +15,44 @@
     <main id="app-content">
         <div id="error-log" style="color: red; padding: 10px; font-weight: bold; background: #fee; border: 1px solid red; display: none; margin-bottom: 15px;"></div>
 
+        <!-- HALAMAN FORM -->
         <section id="form-section">
             <h3>Transaksi Baru</h3>
             <form id="laundry-form">
-                <input type="text" id="nama" placeholder="Nama Pelanggan" required>
-                <input type="tel" id="nohp" placeholder="No. WhatsApp (08xxx)" required>
+                <input type="text" id="nama" placeholder="Nama Pelanggan" required autocomplete="off">
+                <input type="tel" id="nohp" placeholder="No. WhatsApp (08xxx)" required autocomplete="off">
                 <select id="layanan">
                     <option value="Cuci Komplit">Cuci Komplit (Rp 6.000/kg)</option>
                     <option value="Cuci Kering">Cuci Kering (Rp 4.000/kg)</option>
                     <option value="Setrika">Setrika Saja (Rp 3.000/kg)</option>
                 </select>
                 <input type="number" id="berat" placeholder="Berat (Kg)" step="0.1" required>
+                
+                <!-- TAMBAHAN: Status Bayar -->
+                <select id="status-bayar">
+                    <option value="Belum Lunas">Belum Lunas (Bayar Nanti)</option>
+                    <option value="Lunas">Lunas (Bayar Sekarang)</option>
+                </select>
+
                 <button type="submit" id="btn-simpan">Simpan Transaksi</button>
             </form>
         </section>
 
+        <!-- HALAMAN DAFTAR CUCIAN -->
         <section id="list-section" class="hidden">
             <h3>Daftar Cucian</h3>
+            
+            <!-- TAMBAHAN: Kotak Pencarian -->
+            <input type="text" id="search-input" class="search-box" placeholder="🔍 Cari Nama atau Nota (LND-xxx)..." autocomplete="off">
+            
             <div id="cucian-list">
-                <!-- Data akan muncul di sini -->
+                <!-- Data dari Firebase masuk sini -->
             </div>
         </section>
     </main>
 
-        <nav class="bottom-nav">
-        <!-- Tambahin ID 'nav-form' dan class 'active-nav' sebagai penanda halaman pertama kali buka -->
+    <!-- Navigasi Bawah -->
+    <nav class="bottom-nav">
         <button id="nav-form" class="active-nav">
             <span style="font-size: 20px;">➕</span>
             <span>Transaksi</span>
