@@ -12,7 +12,9 @@
     </header>
 
     <main id="app-content">
-        <!-- Form Tambah Transaksi -->
+        <!-- TAMBAHAN: Kotak untuk nampilin error -->
+        <div id="error-log" style="color: red; padding: 10px; font-weight: bold; background: #fee; border: 1px solid red; display: none; margin-bottom: 15px;"></div>
+
         <section id="form-section">
             <h3>Transaksi Baru</h3>
             <form id="laundry-form">
@@ -28,22 +30,18 @@
             </form>
         </section>
 
-        <!-- Daftar Cucian -->
         <section id="list-section">
             <h3>Daftar Cucian</h3>
             <div id="cucian-list">
-                <!-- Data dari Firestore muncul di sini -->
             </div>
         </section>
     </main>
 
-    <!-- Navigasi Bawah ala Mobile App -->
     <nav class="bottom-nav">
         <button id="nav-form">➕ Transaksi</button>
         <button id="nav-list">📋 Daftar Cucian</button>
     </nav>
 
-    <!-- Script sebagai module wajib untuk Firebase V9 -->
     <script type="module" src="app.js"></script>
 </body>
 </html>
