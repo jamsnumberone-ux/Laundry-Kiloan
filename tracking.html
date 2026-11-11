@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Status Cucian</title>
+    <link rel="stylesheet" href="tracking.css">
+</head>
+<body>
+    <div class="tracking-container">
+        <header>
+            <h2>🧺 Cek Cucianmu!</h2>
+            <p>Masukkan nomor nota untuk melihat status laundry.</p>
+        </header>
+
+        <main>
+            <div class="search-box">
+                <!-- autocomplete="off" biar keyboard HP gak ngasih saran aneh-aneh -->
+                <input type="text" id="input-nota" placeholder="Contoh: LND-1234" autocomplete="off">
+                <button id="btn-cek">Cek Status</button>
+            </div>
+
+            <div id="loading" class="hidden">Mencari data...</div>
+            <div id="error-msg" class="hidden error">Nomor nota tidak ditemukan. Cek lagi ya!</div>
+
+            <!-- Card Hasil Pencarian -->
+            <div id="result-card" class="card hidden">
+                <h3 id="res-nama">-</h3>
+                <p class="nota-text">Nota: <strong id="res-nota">-</strong></p>
+                
+                <div class="divider"></div>
+                
+                <div class="detail-row">
+                    <span>Layanan:</span>
+                    <span id="res-layanan">-</span>
+                </div>
+                <div class="detail-row">
+                    <span>Total Tagihan:</span>
+                    <span id="res-total" class="price">-</span>
+                </div>
+                
+                <div class="status-container">
+                    <span id="res-status" class="status-badge">Menunggu</span>
+                </div>
+                
+                <p id="res-pesan" class="pesan-tambahan"></p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script Firebase V9 -->
+    <script type="module" src="tracking.js"></script>
+</body>
+</html>
