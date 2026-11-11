@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasir Laundry Kiloan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h2>Kasir Laundry</h2>
+    </header>
+
+    <main id="app-content">
+        <!-- Form Tambah Transaksi -->
+        <section id="form-section">
+            <h3>Transaksi Baru</h3>
+            <form id="laundry-form">
+                <input type="text" id="nama" placeholder="Nama Pelanggan" required>
+                <input type="tel" id="nohp" placeholder="No. WhatsApp (08xxx)" required>
+                <select id="layanan">
+                    <option value="Cuci Komplit">Cuci Komplit (Rp 6.000/kg)</option>
+                    <option value="Cuci Kering">Cuci Kering (Rp 4.000/kg)</option>
+                    <option value="Setrika">Setrika Saja (Rp 3.000/kg)</option>
+                </select>
+                <input type="number" id="berat" placeholder="Berat (Kg)" step="0.1" required>
+                <button type="submit" id="btn-simpan">Simpan Transaksi</button>
+            </form>
+        </section>
+
+        <!-- Daftar Cucian -->
+        <section id="list-section">
+            <h3>Daftar Cucian</h3>
+            <div id="cucian-list">
+                <!-- Data dari Firestore muncul di sini -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Navigasi Bawah ala Mobile App -->
+    <nav class="bottom-nav">
+        <button id="nav-form">➕ Transaksi</button>
+        <button id="nav-list">📋 Daftar Cucian</button>
+    </nav>
+
+    <!-- Script sebagai module wajib untuk Firebase V9 -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
