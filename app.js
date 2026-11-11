@@ -64,9 +64,9 @@ form.addEventListener("submit", async (e) => {
             tanggal: serverTimestamp()
         });
         
-        alert(`Berhasil! Total: Rp ${totalHarga.toLocaleString("id-ID")}`);
+        alert(`SUKSES!\nNota: ${notaID}\nTotal: Rp ${totalHarga.toLocaleString("id-ID")}`);
         form.reset(); 
-        navList.click(); 
+        //navList.click(); 
         
     } catch (error) {
         // INI PENTING: TAMPILIN ERROR KE LAYAR
