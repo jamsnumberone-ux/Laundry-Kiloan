@@ -235,3 +235,54 @@ button[type="submit"]:disabled {
 .hidden {
     display: none !important;
 }
+
+/* Styling Kotak Pencarian */
+.search-box {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 15px;
+    margin-bottom: 16px;
+    background-color: white;
+    transition: border-color 0.2s;
+}
+
+.search-box:focus {
+    border-color: #3b82f6;
+    outline: none;
+}
+
+/* Badge Pembayaran */
+.badge-bayar {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: transform 0.1s;
+}
+
+.badge-bayar:active {
+    transform: scale(0.95);
+}
+
+.badge-lunas {
+    background-color: #dcfce7; /* Hijau muda */
+    color: #166534; /* Teks hijau tua */
+    border: 1px solid #bbf7d0;
+}
+
+.badge-belum {
+    background-color: #fee2e2; /* Merah muda */
+    color: #991b1b; /* Teks merah tua */
+    border: 1px solid #fecaca;
+}
+
+.estimasi-text {
+    font-size: 13px !important;
+    color: #0ea5e9 !important; /* Biru muda buat tanggal */
+    font-weight: 600;
+}
