@@ -1,11 +1,11 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// firebase-config.js
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// PERBAIKAN: Import wajib pakai link URL (CDN), bukan "firebase/app"
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+// Hapus getAnalytics kalau nggak dipake buat ngurangin beban loading
+// import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js"; 
+
 const firebaseConfig = {
   apiKey: "AIzaSyCG_b0ROQpqAoBYOTTH27LoUIf_tCzuAmk",
   authDomain: "laundry-kiloan-aee8f.firebaseapp.com",
@@ -16,6 +16,6 @@ const firebaseConfig = {
   measurementId: "G-0VHZP7LCEH"
 };
 
-// Initialize Firebase
+// Initialize Firebase & export Firestore
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+export const db = getFirestore(app);
