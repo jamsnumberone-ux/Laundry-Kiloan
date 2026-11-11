@@ -1,10 +1,6 @@
 // firebase-config.js
-
-// PERBAIKAN: Import wajib pakai link URL (CDN), bukan "firebase/app"
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-// Hapus getAnalytics kalau nggak dipake buat ngurangin beban loading
-// import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js"; 
 
 const firebaseConfig = {
   apiKey: "AIzaSyCG_b0ROQpqAoBYOTTH27LoUIf_tCzuAmk",
@@ -16,6 +12,8 @@ const firebaseConfig = {
   measurementId: "G-0VHZP7LCEH"
 };
 
-// Initialize Firebase & export Firestore
+// Cek apakah file ini jalan
+console.log("Firebase config loaded!"); 
+
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
