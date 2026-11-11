@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kasir Laundry Kiloan</title>
     <link rel="stylesheet" href="style.css">
+    
+    <!-- PERUBAHAN: Pindah ke sini dan pakai defer -->
+    <script type="module" src="./app.js" defer></script>
 </head>
 <body>
     <header>
@@ -12,7 +15,6 @@
     </header>
 
     <main id="app-content">
-        <!-- TAMBAHAN: Kotak untuk nampilin error -->
         <div id="error-log" style="color: red; padding: 10px; font-weight: bold; background: #fee; border: 1px solid red; display: none; margin-bottom: 15px;"></div>
 
         <section id="form-section">
@@ -30,9 +32,10 @@
             </form>
         </section>
 
-        <section id="list-section">
+        <section id="list-section" class="hidden">
             <h3>Daftar Cucian</h3>
             <div id="cucian-list">
+                <!-- Data akan muncul di sini -->
             </div>
         </section>
     </main>
@@ -41,7 +44,5 @@
         <button id="nav-form">➕ Transaksi</button>
         <button id="nav-list">📋 Daftar Cucian</button>
     </nav>
-
-    <script type="module" src="app.js"></script>
 </body>
 </html>
