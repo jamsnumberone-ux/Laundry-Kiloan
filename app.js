@@ -113,8 +113,8 @@ async function loadData() {
             card.className = "card";
             
             // Format format WA - Ganti spasi dengan %20 dan enter dengan %0A (URL Encoding)
-            const pesanSelesai = `Halo Kak ${data.nama},%0A%0ACucian dari nota *${data.nota}* sudah *SELESAI* dan siap diambil ya.%0ATotal tagihan: *Rp ${data.total.toLocaleString("id-ID")}*.%0A%0ATerima kasih sudah laundry di tempat kami!`;
-            
+            const pesanSelesai = `Halo Kak ${data.nama},%0A%0ACucian dari nota *${data.nota}* sudah *SELESAI* dan siap diambil ya.%0ATotal tagihan: *Rp ${data.total.toLocaleString("id-ID")}*.%0A%0ACek status cucianmu kapan saja di: https://usernamegithublu.github.io/repo-lu/tracking.html %0A%0ATerima kasih!`;
+          
             // Pastikan nomor HP formatnya benar buat WA API (ubah 08 jadi 628)
             let noWa = data.nohp;
             if (noWa.startsWith("0")) {
