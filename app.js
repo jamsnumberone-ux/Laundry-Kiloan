@@ -1,3 +1,19 @@
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { auth } from "./firebase-config.js"; // Pastikan auth di-import
+
+// SATPAM: Cek kalau belum login, tendang ke login.html
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        window.location.replace("login.html");
+    }
+});
+
+// LOGIC LOGOUT (Bisa lu tempel ke tombol logout di index.html nantinya)
+window.logoutKasir = async function() {
+    await signOut(auth);
+    window.location.replace("login.html");
+}
+
 import { collection, addDoc, getDocs, updateDoc, doc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { db } from "./firebase-config.js";
 
