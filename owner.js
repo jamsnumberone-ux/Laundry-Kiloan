@@ -114,22 +114,47 @@ async function loadOwnerData() {
             });
         }
 
-        // 2. HITUNG PENGELUARAN BULAN INI
-        expSnapshot.forEach((docSnapshot) => {
-            const data = docSnapshot.data();
-            const nominal = Number(data.nominal) || 0;
-            
-            let tglExp = new Date();
-            if (data.tanggal) {
-                if (typeof data.tanggal.toDate === 'function') tglExp = data.tanggal.toDate();
-                else tglExp = new Date(data.tanggal);
-            }
+        // 2. HITUNG PENGELUARAN BULAN INI & CETAK RIWAYATNYA
+        let htmlExpense = "";
+        
+        if (expSnapshot.empty) {
+            htmlExpense = "<p style='text-align: center; color: #64748b;'>Belum ada pengeluaran dicatat.</p>";
+        } else {
+            expSnapshot.forEach((docSnapshot) => {
+                const data = docSnapshot.data();
+                const nominal = Number(data.nominal) || 0;
+                const namaPengeluaran = data.nama || "Pengeluaran Tidak Diketahui";
+                
+                let tglExp = new Date();
+                if (data.tanggal) {
+                    if (typeof data.tanggal.toDate === 'function') tglExp = data.tanggal.toDate();
+                    else tglExp = new Date(data.tanggal);
+                }
 
-            // Kalau pengeluaran terjadi di bulan dan tahun yang sama
-            if (tglExp.getMonth() === currentMonth && tglExp.getFullYear() === currentYear) {
-                pengeluaranBulanIni += nominal;
-            }
-        });
+                // Kalau pengeluaran terjadi di bulan ini, masuk hitungan
+                if (tglExp.getMonth() === currentMonth && tglExp.getFullYear() === currentYear) {
+                    pengeluaranBulanIni += nominal;
+                }
+
+                // Format List Riwayat Pengeluaran
+                const expTanggalFormat = tglExp.toLocaleDateString("id-ID", { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+                htmlExpense += `
+                    <div class="report-card">
+                        <div class="report-info">
+                            <h4>${namaPengeluaran}</h4>
+                            <p style="font-size:11px; color:#94a3b8; margin-top:2px;">📅 ${expTanggalFormat}</p>
+                        </div>
+                        <div class="report-right">
+                            <span class="price" style="color: #ef4444;">- Rp ${nominal.toLocaleString("id-ID")}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+        
+        // Lempar hasil HTML pengeluaran ke layar
+        document.getElementById("expense-report-list").innerHTML = htmlExpense;
 
         // 3. HITUNG LABA BERSIH
         const labaBersih = omzetBulanIni - pengeluaranBulanIni;
