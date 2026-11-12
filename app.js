@@ -195,11 +195,11 @@ async function updateStatus(e) {
     
     if(!nextStatus) return;
     
-    // Kalau status mau diubah jadi "Selesai" atau "Diambil", tanyain juga apakah sudah dibayar/lunas
     let updateData = { status: nextStatus };
     
+    // Konfirmasi ganda khusus saat mengubah ke Selesai atau Diambil
     if (nextStatus === "Selesai" || nextStatus === "Diambil") {
-        const bayarLunas = confirm(`Ubah status jadi "${nextStatus}"?\n\nApakah pelanggan juga sudah melunasi pembayaran? (Klik OK jika LUNAS, Cancel jika BELUM)`);
+        const bayarLunas = confirm(`Ubah status jadi "${nextStatus}"?\n\nApakah pelanggan juga sudah melunasi pembayaran?\n(Klik OK jika LUNAS, Cancel jika BELUM)`);
         if (bayarLunas) {
             updateData.bayar = "Lunas";
         }
@@ -210,7 +210,7 @@ async function updateStatus(e) {
     try {
         const docRef = doc(db, "transactions", docId);
         await updateDoc(docRef, updateData);
-        window.loadData(); // Refresh UI instan
+        window.loadData(); 
     } catch (error) {
         showError("Gagal update status!", error);
     }
