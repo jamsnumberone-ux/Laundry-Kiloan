@@ -183,7 +183,7 @@ window.loadData = async function loadData() {
     }
 }
 
-// LOGIC UPDATE STATUS CUCIAN
+// LOGIC UPDATE STATUS CUCIAN + OPSI LUNAS OTOMATIS
 async function updateStatus(e) {
     const docId = e.target.getAttribute("data-id");
     const currentStatus = e.target.getAttribute("data-status");
@@ -195,14 +195,24 @@ async function updateStatus(e) {
     
     if(!nextStatus) return;
     
-    if(confirm(`Ubah status cucian jadi "${nextStatus}"?`)) {
-        try {
-            const docRef = doc(db, "transactions", docId);
-            await updateDoc(docRef, { status: nextStatus });
-            window.loadData(); 
-        } catch (error) {
-            showError("Gagal update status!", error);
+    // Kalau status mau diubah jadi "Selesai" atau "Diambil", tanyain juga apakah sudah dibayar/lunas
+    let updateData = { status: nextStatus };
+    
+    if (nextStatus === "Selesai" || nextStatus === "Diambil") {
+        const bayarLunas = confirm(`Ubah status jadi "${nextStatus}"?\n\nApakah pelanggan juga sudah melunasi pembayaran? (Klik OK jika LUNAS, Cancel jika BELUM)`);
+        if (bayarLunas) {
+            updateData.bayar = "Lunas";
         }
+    } else {
+        if(!confirm(`Ubah status cucian jadi "${nextStatus}"?`)) return;
+    }
+
+    try {
+        const docRef = doc(db, "transactions", docId);
+        await updateDoc(docRef, updateData);
+        window.loadData(); // Refresh UI instan
+    } catch (error) {
+        showError("Gagal update status!", error);
     }
 }
 
