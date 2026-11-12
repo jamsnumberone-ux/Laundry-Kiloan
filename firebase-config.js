@@ -2,6 +2,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+// TAMBAHAN 1: Import Auth
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"; 
+
 const firebaseConfig = {
   apiKey: "AIzaSyCG_b0ROQpqAoBYOTTH27LoUIf_tCzuAmk",
   authDomain: "laundry-kiloan-aee8f.firebaseapp.com",
@@ -17,3 +20,6 @@ console.log("Firebase config loaded!");
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+
+// TAMBAHAN 2: Export Auth biar bisa dipakai di file lain
+export const auth = getAuth(app);
