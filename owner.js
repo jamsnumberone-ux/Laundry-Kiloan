@@ -42,10 +42,15 @@ async function loadOwnerData() {
             const berat = data.berat || 0;
             const statusCucian = data.status || "Antrean";
 
-            // Handle tanggal dari Firestore (bisa berupa Timestamp atau string)
+                        // Handle tanggal dari Firestore dengan aman
             let tglTransaksi = new Date();
-            if (data.tanggal && typeof data.tanggal.toDate === 'function') {
-                tglTransaksi = data.tanggal.toDate();
+            if (data.tanggal) {
+                if (typeof data.tanggal.toDate === 'function') {
+                    tglTransaksi = data.tanggal.toDate();
+                } else {
+                    // Kalau tersimpan sebagai format lain
+                    tglTransaksi = new Date(data.tanggal);
+                }
             }
 
             const tglStr = tglTransaksi.toISOString().split('T')[0];
