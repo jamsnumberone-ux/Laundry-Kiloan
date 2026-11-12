@@ -66,7 +66,7 @@ async function loadOwnerData() {
 
             // Render ke list HTML
             const badgeBayarClass = statusBayar === "Lunas" ? "badge-lunas" : "badge-belum";
-            const tanggalFormat = tgl transaksiFormat(tglTransaksi);
+            const tanggalFormat = formatTanggal(tglTransaksi);
 
             htmlContent += `
                 <div class="report-card">
@@ -98,7 +98,7 @@ async function loadOwnerData() {
 }
 
 // Helper kecil buat merapikan tanggal
-function tgl transaksiFormat(date) {
+function formatTanggal(date) {
     return date.toLocaleDateString("id-ID", { 
         day: 'numeric', 
         month: 'short', 
@@ -107,3 +107,4 @@ function tgl transaksiFormat(date) {
         minute: '2-digit'
     });
 }
+
