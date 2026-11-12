@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Owner - Laundry</title>
+    <link rel="stylesheet" href="owner.css">
+    <!-- Script utama khusus owner -->
+    <script type="module" src="./owner.js" defer></script>
+</head>
+<body>
+    <header>
+        <h2>📊 Dashboard Owner</h2>
+        <p>Laporan Keuangan & Rekap Laundry</p>
+    </header>
+
+    <main>
+        <!-- Kotak Ringkasan Statistik (Cards) -->
+        <section class="stats-container">
+            <div class="stat-card">
+                <p>Pendapatan Hari Ini</p>
+                <h3 id="omzet-hari-ini">Rp 0</h3>
+            </div>
+            <div class="stat-card">
+                <p>Pendapatan Bulan Ini</p>
+                <h3 id="omzet-bulan-ini">Rp 0</h3>
+            </div>
+            <div class="stat-card warning">
+                <p>Total Belum Lunas (Piutang)</p>
+                <h3 id="total-piutang">Rp 0</h3>
+            </div>
+        </section>
+
+        <!-- Bagian Riwayat Semua Transaksi -->
+        <section class="report-section">
+            <h3>Semua Riwayat Transaksi</h3>
+            <div id="owner-report-list">
+                <p style="text-align: center; color: #64748b;">Memuat data laporan...</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
